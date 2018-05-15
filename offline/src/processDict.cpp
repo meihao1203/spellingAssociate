@@ -60,6 +60,7 @@ namespace meihao
 					if(tmp[i]>=65&&tmp[i]<=90)  //大写字母
 					{
 						tmp[i++] += 32;  // 变小写
+						
 					}
 					else if( tmp[i]>=97&&tmp[i]<=122 )  //小写字母,不做处理
 					{
