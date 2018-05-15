@@ -1,3 +1,3 @@
 git add -A
-git commit -m "C++ learning"
+git commit -m "spellingAssociate"
 git push origin master
