@@ -1,0 +1,31 @@
+ ///
+ /// @file    processDict.cpp
+ /// @author  meihao1203(meihao19931203@outlook.com)
+ /// @date    2018-05-15 15:46:56
+ ///
+ 
+#include"processDict.h"
+#include<iostream>
+#include<sys/types.h>
+#include<dirent.h>
+using namespace std;
+#define handle_error(msg)\
+	do{\
+		perror(msg);\
+		exit(EXIT_FAILURE);\
+	}while(0);
+namespace meihao
+{
+	processDict::processDict(const string& path):_path(path)
+	{
+		_preFile = "preFile.txt";
+		_dict = "dict.txt";
+		//获取指定路径下的所有语料文件名
+		DIR* dir = opendir(_path)
+			
+	}
+	void processDict::handleFile()
+	{
+
+	}
+};
