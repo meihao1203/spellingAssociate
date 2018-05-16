@@ -18,9 +18,10 @@ namespace meihao
 	{
 		public:
 			Index(const string& path);  //传递dict.txt路径
-	//	private:  // 内部处理函数，不提供对外接口
+		private:  // 内部处理函数，不提供对外接口
 			void readDict();
 			void indexMap();
+		public:
 			void indexMapSave();  // 建立好的索引存入文件
 		private:
 			vector<pair<string,int> > _readDict;  // dict.txt文件都是string int格式，

@@ -16,6 +16,8 @@ namespace meihao
 {
 	Index::Index(const string& path):_path(path)
 	{
+		readDict();  // 词典读入内存
+		indexMap();  // 建立词典索引
 	}
 	void Index::readDict()
 	{	
