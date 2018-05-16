@@ -36,8 +36,10 @@ namespace meihao
 			iss>>freq;
 			itemTmp.second = atoi(freq.c_str());
 			_readDict.push_back(itemTmp);
-			cout<<_readDict[0].first<<" "<<_readDict[0].second<<endl;
-			while(1);
 		}
+	}
+	void Index::indexMap()
+	{
+
 	}
 };
