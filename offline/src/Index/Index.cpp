@@ -73,5 +73,16 @@ namespace meihao
 	void Index::indexMapSave()
 	{
 		ofstream ofs("index.bat");
+		map<char,set<int> >::iterator mit = _index.begin();
+		for(;mit!=_index.end();++mit)
+		{
+			ofs<<mit->first<<" ";
+			for(auto &elem:mit->second)
+			{
+				ofs<<elem<<" ";
+			}
+			ofs<<endl;
+		}
+		ofs.close();
 	}
 };
