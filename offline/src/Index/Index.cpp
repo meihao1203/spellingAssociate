@@ -42,13 +42,45 @@ namespace meihao
 	void Index::indexMap()
 	{
 		int dictSize = _readDict.size();  // 词典一共多少个词条
-		int word;  //每一个词条的单词
+		string word;  //每一个词条的单词
 		int wordLen;  //每一个单词的长度
 		int idx = 0;
 		map<char,set<int> >::iterator mit;
 		while(idx<dictSize)
 		{
+			word = _readDict[idx].first;
+			wordLen = word.size();
 			int i = 0;
+			while(i<wordLen)  // 对一个词条的每个字符进行统计
+			{
+				mit = _index.find(word[i]);
+				if( _index.end()==mit  )  //没找到
+				{
+					pair<char,set<int> > newPair;
+					newPair.first = word[i];
+					newPair.second.insert(idx);  // 第二个参数表示出现这个字符的单词在词典中的哪一行，
+					// 通过这个idx可以直接去vector中找到这个单词和频率
+					_index.insert(newPair);
+					i++;
+					continue;
+				}
+				(mit->second).insert(idx);
+				i++;
+			}
+			idx++;  //一个单词记录完了，开始记录下一个单词
+		}
+	}
+	void Index::indexMapSave()
+	{
+		ofstream ofs("index.bat");
+		for(auto &elem:_index)
+		{
+			ofs<<elem.first<<" ";
+			for(auto &elem2:elem.second)
+			{
+				ofs<<elem<<" ";
+			}
+			ofs<<endl;
 		}
 	}
 };

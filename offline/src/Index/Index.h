@@ -24,7 +24,7 @@ namespace meihao
 		private:
 			vector<pair<string,int> > _readDict;  // dict.txt文件都是string int格式，
 			// 这里全部按这个格式一行一行的读进来
-			map<char,set<int> > _index;  // 每个字符，统计在dict.txt中出现的位置和行号
+			map<char,set<int> > _index;  // 每个字符，统计在dict.txt中词条中出现的位置和行号
 			// 行号就等于_readDict对应单词的下标
 			string _path;
 	};
