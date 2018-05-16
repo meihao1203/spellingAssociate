@@ -10,6 +10,7 @@
 #include<stdlib.h>
 #include<sstream>
 #include<string>
+#include<iterator>
 using namespace std;
 namespace meihao
 {
@@ -40,6 +41,14 @@ namespace meihao
 	}
 	void Index::indexMap()
 	{
-
+		int dictSize = _readDict.size();  // 词典一共多少个词条
+		int word;  //每一个词条的单词
+		int wordLen;  //每一个单词的长度
+		int idx = 0;
+		map<char,set<int> >::iterator mit;
+		while(idx<dictSize)
+		{
+			int i = 0;
+		}
 	}
 };
