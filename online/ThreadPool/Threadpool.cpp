@@ -14,4 +14,12 @@ namespace meihao
 													,_buf(_bufSize)
 													,_isExit(false)
 	{}
+	void Threadpool::start()
+	{//开启线程池,造好线程
+		for(int idx=0;idx!=_threadNum;++idx)
+		{
+			Thread* thread = new 
+		}
+
+	}
 };
