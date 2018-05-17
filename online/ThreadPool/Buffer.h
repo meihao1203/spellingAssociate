@@ -16,6 +16,13 @@ namespace meihao
 	typedef Task* DataType;
 	class Buffer
 	{
+		public:
+			Buffer(int);
+			void push(DataType);
+			DataType pop();
+			void wakeupEmpty();  // 唤醒所有等待在_notEmpty条件变量上的线程
+			bool full();
+			bool empty();
 		private:
 			MutexLock _mutex;
 			Condition _notFull;
