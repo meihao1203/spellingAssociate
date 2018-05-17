@@ -1,0 +1,32 @@
+ ///
+ /// @file    Threadpool.h
+ /// @author  meihao1203(meihao19931203@outlook.com)
+ /// @date    2018-05-17 11:23:00
+ ///
+ 
+#ifndef __THREADPOOL_H__
+#define __THREADPOOL_H__
+#include<iostream>
+#include<vector>
+#include"Task.h"
+using namespace std;
+namespace meihao
+{
+	class Thread:private Noncopyable
+	{
+		public:
+			Threadpool(int,int);
+			void start();
+			void stop();
+			void addTask(Task* task);
+			Task* getTask();
+			void threadFunc();
+		private:
+			int _threadNum;
+			vector<Thread*> _threadsVec;
+			int _bufSize;
+			Buffer _buf;
+			bool _isExit;
+	};
+};
+#endif
