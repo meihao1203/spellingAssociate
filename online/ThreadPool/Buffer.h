@@ -10,6 +10,7 @@
 #include"MutexLock.h"
 #include"Condition.h"
 #include"Task.h"
+#include<queue>
 using namespace std;
 namespace meihao
 {
