@@ -7,3 +7,13 @@
 #include"Buffer.h"
 #include<iostream>
 using namespace std;
+namespace meihao
+{
+	Buffer::Buffer(int size):_queSize(size)
+							,_mutex()
+							,_notFull()
+							,_notEmpty()
+							,_flag(false)
+	{
+	}
+};
