@@ -28,7 +28,7 @@ namespace meihao
 			MutexLock _mutex;
 			Condition _notFull;
 			Condition _notEmpty;
-			queue<Task*> DataType;
+			queue<DataType> _que;
 			int _queSize;
 			bool _flag;
 	};
