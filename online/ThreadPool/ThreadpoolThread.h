@@ -8,7 +8,7 @@
 #define __THREADPOOLTHREAD_H__
 #include<iostream>
 #include"Thread.h"
-#include"ThreadpoolThread.h"
+#include"Threadpool.h"
 using namespace std;
 namespace meihao
 {
