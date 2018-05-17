@@ -11,9 +11,55 @@ namespace meihao
 {
 	Buffer::Buffer(int size):_queSize(size)
 							,_mutex()
-							,_notFull()
-							,_notEmpty()
-							,_flag(false)
+							,_notFull(_mutex)
+							,_notEmpty(_mutex)
+							,_flag(true)
 	{
+	}
+	bool Buffer::full()
+	{
+		return _queSize == _que.size();
+	}
+	bool Buffer::empty()
+	{
+		return _que.size() == 0;
+	}
+	void Buffer::push(DataType elem)
+	{
+		_mutex.lock();
+		//if(full())
+		while( full() )  //防止异常唤醒
+		{
+			_notFull.wait();
+		}
+		_que.push(elem);
+		_notEmpty.notify();
+		_mutex.unlock();
+	}
+	DataType Buffer::pop()
+	{
+		_mutex.lock();
+		//if( _flag&&empty() )  //如果线程池没有关闭，并且队列为空
+		while( _flag&&empty() )
+		{
+			_notEmpty.wait();
+		}
+		if(_flag)  //如果线程池没关闭，正常取任务
+		{
+			DataType tmp = _que.front();
+			_que.pop();
+			_mutex.unlock();
+			return tmp;
+		}
+		else 
+		{// 线程池关闭，直接退出
+			_mutex.unlock();
+			return NULL;
+		}
+	}
+	void Buffer::wakeupEmpty()
+	{
+		_flag = false;  //关闭缓冲区
+		_notEmpty.notifyall();
 	}
 };

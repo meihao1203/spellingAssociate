@@ -30,7 +30,7 @@ namespace meihao
 			Condition _notEmpty;
 			queue<DataType> _que;
 			int _queSize;
-			bool _flag;
+			bool _flag;  // 标志位，线程池关闭为false
 	};
 };
 #endif
