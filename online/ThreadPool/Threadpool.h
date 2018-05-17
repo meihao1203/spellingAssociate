@@ -9,10 +9,13 @@
 #include<iostream>
 #include<vector>
 #include"Task.h"
+#include"Buffer.h"
+#include"Noncopyable.h"
+#include"Thread.h"
 using namespace std;
 namespace meihao
 {
-	class Thread:private Noncopyable
+	class Threadpool:private Noncopyable
 	{
 		public:
 			Threadpool(int,int);
