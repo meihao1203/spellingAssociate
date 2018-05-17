@@ -1,9 +1,9 @@
- ///
- /// @file    Threadpool.cpp
- /// @author  meihao1203(meihao19931203@outlook.com)
- /// @date    2018-05-17 11:49:51
- ///
- 
+///
+/// @file    Threadpool.cpp
+/// @author  meihao1203(meihao19931203@outlook.com)
+/// @date    2018-05-17 11:49:51
+///
+
 #include"Threadpool.h"
 #include"ThreadpoolThread.h"
 #include<unistd.h>
@@ -14,7 +14,7 @@ namespace meihao
 	Threadpool::Threadpool(int threadNum,int bufSize):_threadNum(threadNum)
 													,_bufSize(bufSize)
 													,_buf(_bufSize)
-													,_isExit(false)
+												    ,_isExit(false)
 	{}
 	void Threadpool::start()
 	{//开启线程池,造好线程
@@ -34,7 +34,7 @@ namespace meihao
 		if(!_isExit)
 		{
 			while(!_buf.empty())  //如果缓冲区不空
-			//说明还有任务线程没执行完
+				//说明还有任务线程没执行完
 			{
 				sleep(1);
 			}
@@ -58,12 +58,21 @@ namespace meihao
 	}
 	void Threadpool::threadFunc()
 	{
-		if(!_isExit)
+		//	if(!_isExit)
+		//	{
+		//		Task* task = getTask();
+		//		if(task)
+		//		{
+		//			task->process();  //线程执行的具体的任务
+		//		}
+		//	}
+		//线程执行任务是死循环，这里直接执行一次就退出了
+		while(!_isExit)
 		{
 			Task* task = getTask();
 			if(task)
 			{
-				task->process();  //线程执行的具体的任务
+				task->process();
 			}
 		}
 	}

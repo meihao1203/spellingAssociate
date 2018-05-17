@@ -48,6 +48,7 @@ namespace meihao
 		{
 			DataType tmp = _que.front();
 			_que.pop();
+			_notFull.notify();
 			_mutex.unlock();
 			return tmp;
 		}

@@ -7,6 +7,8 @@
 #include"Thread.h"
 #include<iostream>
 #include<stdlib.h>
+#include<pthread.h>
+#include<stdio.h>
 using namespace std;
 #define handle_error(msg)\
 	do{\
@@ -22,7 +24,11 @@ namespace meihao
 	void Thread::start()
 	{
 		_isRunning = true;
-		pthread_create(&_pthId,NULL,&Thread::threadFunc,this);
+		int ret = pthread_create(&_pthId,NULL,&Thread::threadFunc,this);
+		if(0!=ret)
+		{
+			handle_error("pthread_create");
+		}
 	}
 	void Thread::join()
 	{
