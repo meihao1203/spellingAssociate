@@ -5,6 +5,8 @@
  ///
  
 #include"Threadpool.h"
+#include"ThreadpoolThread.h"
+#include<unistd.h>
 #include<iostream>
 using namespace std;
 namespace meihao
@@ -18,8 +20,51 @@ namespace meihao
 	{//开启线程池,造好线程
 		for(int idx=0;idx!=_threadNum;++idx)
 		{
-			Thread* thread = new 
+			Thread* thread = new ThreadpoolThread(*this);  //要把线程池对象传过去，
+			//run方法调用线程池功能函数要用到
+			_threadsVec.push_back(thread);
 		}
-
+		for(auto& elem:_threadsVec)
+		{
+			elem->start();  //线程池造好的所有线程启动
+		}
+	}
+	void Threadpool::stop()
+	{
+		if(!_isExit)
+		{
+			while(!_buf.empty())  //如果缓冲区不空
+			//说明还有任务线程没执行完
+			{
+				sleep(1);
+			}
+			_buf.wakeupEmpty();  //唤醒所有等待在缓冲区条件变量上的线程
+			_isExit = true;
+			//回收线程
+			for(auto& elem:_threadsVec)
+			{
+				elem->join();  //线程回收
+				delete elem;  //线程对象是new出来的，释放资源
+			}
+		}
+	}
+	void Threadpool::addTask(Task* task)
+	{
+		_buf.push(task);  //线程池添加一个任务
+	}
+	Task* Threadpool::getTask()
+	{
+		return _buf.pop();
+	}
+	void Threadpool::threadFunc()
+	{
+		if(!_isExit)
+		{
+			Task* task = getTask();
+			if(task)
+			{
+				task->process();  //线程执行的具体的任务
+			}
+		}
 	}
 };
