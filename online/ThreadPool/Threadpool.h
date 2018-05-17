@@ -15,7 +15,7 @@
 using namespace std;
 namespace meihao
 {
-	class Threadpool:private Noncopyable
+	class Threadpool:private Noncopyable  //Threadpool禁止拷贝，Noncopyable禁止指向派生类对象
 	{
 		public:
 			Threadpool(int,int);
