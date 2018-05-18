@@ -41,7 +41,7 @@ int main()
 			,point(3,4)
 			,point(2,3)};
 	//priority_queue<point,vector<point>,Compare > myQue(arr,arr+4);
-	priority_queue<point,deque<point>,Compare > myQue(arr,arr+4);
+	priority_queue<point,deque<point>,Compare > myQue(arr,arr+4);  // 优先级队列的底层实现可以是不同的容器
 	while(!myQue.empty())
 	{
 		cout<<myQue.top()<<" ";
