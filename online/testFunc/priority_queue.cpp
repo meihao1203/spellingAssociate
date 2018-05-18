@@ -28,7 +28,7 @@ ostream& operator<<(ostream& os,const point& rhs)
 class Compare
 {
 	public:
-	bool operator((const point& lhs,const point& rhs)
+	bool operator()(const point& lhs,const point& rhs)
 	{
 		return (lhs._x*lhs._y)>(rhs._x*rhs._y);
 	}
