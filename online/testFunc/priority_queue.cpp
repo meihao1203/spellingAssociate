@@ -7,6 +7,7 @@
 #include<queue>
 #include<vector>
 #include<iterator>
+#include<deque>
 #include<iostream>
 using namespace std;
 class point
@@ -39,7 +40,8 @@ int main()
 		,point(1,2)
 			,point(3,4)
 			,point(2,3)};
-	priority_queue<point,vector<point>,Compare > myQue(arr,arr+4);
+	//priority_queue<point,vector<point>,Compare > myQue(arr,arr+4);
+	priority_queue<point,deque<point>,Compare > myQue(arr,arr+4);
 	while(!myQue.empty())
 	{
 		cout<<myQue.top()<<" ";
