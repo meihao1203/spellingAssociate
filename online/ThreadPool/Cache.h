@@ -24,6 +24,7 @@ namespace meihao
 			void readFromFile(const string& filename);  //从文件中读入Cache
 			void writeToFile(const string& filename);  //Cache写回磁盘
 			void update(const Cache& rhs);  //更新当前线程内存中的Cache
+			int size();
 		private:
 			unordered_map<string,string> _hashMap;
 	};
