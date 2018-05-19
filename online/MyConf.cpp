@@ -35,6 +35,7 @@ namespace meihao
 			iss>>key>>value;
 			_map.insert(::make_pair(key,value));
 		}
+		ifs.close();
 	}
 	map<string,string>& MyConf::getMap()
 	{
@@ -42,7 +43,7 @@ namespace meihao
 	}
 	void MyConf::show()
 	{
-		cout<<"路径"<<_filepath<<endl;
+		cout<<"路径 "<<_filepath<<endl;
 		map<string,string>::iterator mit = _map.begin();
 		for(;mit!=_map.end();)
 		{
