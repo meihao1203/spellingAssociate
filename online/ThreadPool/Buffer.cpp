@@ -24,7 +24,7 @@ namespace meihao
 	{
 		return _que.size() == 0;
 	}
-	void Buffer::push(DataType elem)
+	void Buffer::push(Task elem)
 	{
 		_mutex.lock();
 		//if(full())
@@ -36,7 +36,7 @@ namespace meihao
 		_notEmpty.notify();
 		_mutex.unlock();
 	}
-	DataType Buffer::pop()
+	Task Buffer::pop()
 	{
 		_mutex.lock();
 		//if( _flag&&empty() )  //如果线程池没有关闭，并且队列为空
@@ -46,7 +46,7 @@ namespace meihao
 		}
 		if(_flag)  //如果线程池没关闭，正常取任务
 		{
-			DataType tmp = _que.front();
+			Task tmp = _que.front();
 			_que.pop();
 			_notFull.notify();
 			_mutex.unlock();
