@@ -10,6 +10,8 @@
 #include<map>
 #include<vector>
 #include<string>
+#include<set>
+
 using namespace std;
 namespace meihao
 {
@@ -21,13 +23,13 @@ namespace meihao
 			void show_dict();
 			void show_index_table();
 			MyDict();
-			read_from(const char* dictPath);  // 读入词典文件
+			void read_from(const char* dictPath);  // 读入词典文件
 			void record_to_index(int idx);  // 建立索引，每个词典中的单词开始遍历
 			vector<string,int>& get_dict();
 			map<string,set<int> >& get_index_table();
 		private:
 			static MyDict* _pInstance;
-			vector<pair<string,int>> _dict;  // 词典
+			vector<pair<string,int> > _dict;  // 词典
 			map<string,set<int> > _index_table;  // 索引
 	};
 };
