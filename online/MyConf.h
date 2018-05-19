@@ -16,7 +16,7 @@ namespace meihao
 	{
 		public:
 			MyConf(const string& path);
-			void init();
+			void init();  // 配置文件存放到_map里面
 			map<string,string>& getMap();
 			void show();
 		private:
