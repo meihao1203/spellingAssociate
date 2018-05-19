@@ -21,11 +21,11 @@ namespace meihao
 			static MyDict* getInstance();
 			void init(const char* dictpath,const char* cnDictpath);  //所有词典文件读入内存,并建立索引
 			void show_dict();
-			void show_index_table();
+			void write_index_table();
 			MyDict();
 			void read_from(const char* dictPath);  // 读入词典文件
 			void record_to_index(int idx);  // 建立索引，每个词典中的单词开始遍历
-			vector<string,int>& get_dict();
+			vector<pair<string,int> >& get_dict();
 			map<string,set<int> >& get_index_table();
 		private:
 			static MyDict* _pInstance;
