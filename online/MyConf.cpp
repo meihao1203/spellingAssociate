@@ -19,6 +19,7 @@ namespace meihao
 	MyConf::MyConf(const string& path)
 	{
 		_filepath = path;
+		init();
 	}
 	void MyConf::init()
 	{
