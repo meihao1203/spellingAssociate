@@ -17,8 +17,10 @@ using namespace std;
 	}while(0);
 namespace meihao
 {
-	Thread::Thread():_pthId(0)
-					 ,_isRunning(false)
+	Thread::Thread(ThreadCallback cb,Cache& cache):_pthId(0)
+					,_isRunning(false)
+					,_cb(cb)
+					,_cache(cache)
 	{
 	}
 	void Thread::start()
@@ -35,6 +37,7 @@ namespace meihao
 		if(_isRunning)
 		{
 			pthread_join(_pthId,NULL);
+			_isRunning = false;
 		}
 	}
 	Thread::~Thread()
@@ -50,7 +53,7 @@ namespace meihao
 		Thread* thread = static_cast<Thread*> (arg);
 		if(thread)
 		{
-			thread->run();
+			thread->_cb(thread->_cache);
 		}
 	}
 };
