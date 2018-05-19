@@ -10,6 +10,7 @@
 #include<stdlib.h>
 #include<errno.h>
 #include<sstream>
+#include<iterator>
 #define handle_error(msg)\
 	do{ perror(msg); exit(EXIT_FAILURE);}while(0);
 using namespace std;
@@ -36,8 +37,8 @@ namespace meihao
 		 int pairInt;
 		 while(getline(ifs,line))
 		 {
-			 ostringstream oss(line);
-			 oss<<pairString<<pairInt;
+			 istringstream iss(line);
+			 iss>>pairString>>pairInt;
 			 _dict.push_back(::make_pair(pairString,pairInt));
 		 }
 	 }
@@ -55,8 +56,48 @@ namespace meihao
 	 {
 		 //读入词典文件
 		 read_from(dictpath);
+		 //read_from(cnDictpath);
 		 //建立索引
-
-
+		 for(int idx=0;idx!=_dict.size();++idx)
+		{
+			record_to_index(idx);
+		}
+	 }
+	 void MyDict::show_dict()
+	 {
+		for(auto& elem:_dict)
+		{
+			cout<<elem.first<<"\t"<<elem.second<<endl;
+		}
+	 }
+	 void MyDict::write_index_table()
+	 {
+		 ofstream ofs("/home/meihao/spellingAssociate/online/conf/index_table");
+		 if(!ofs.good())
+		 {
+			 handle_error("MyDict ofs fail");
+		 }
+		 map<string,set<int> >::iterator mit = _index_table.begin();
+		 for(;mit!=_index_table.end();)
+		 {
+			 ofs<<mit->first<<" ";
+			 for(auto& elem:mit->second)
+			 {
+				 ofs<<elem<<" ";
+			 }
+			 ofs<<endl;
+			 ++mit;
+		 }
+	 }
+	 MyDict::MyDict()
+	 {
+	 }
+	 vector<pair<string,int> >& MyDict::get_dict()
+	 {
+		 return _dict;
+	 }
+	 map<string,set<int> >& MyDict::get_index_table()
+	 {
+		 return _index_table;
 	 }
 };
