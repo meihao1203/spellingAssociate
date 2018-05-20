@@ -4,7 +4,7 @@
  /// @date    2018-05-19 16:17:06
  ///
  
-#ifndef __CACHE__H__
+#ifndef __CACHE_H__
 #define __CACHE_H__
 #include<iostream>
 #include<unordered_map>
