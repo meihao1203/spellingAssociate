@@ -15,4 +15,5 @@ int main()
 	char buf[512];
 	recv(cfd,buf,sizeof(buf),0);
 	cout<<buf<<endl;
+	return 0;
 }
