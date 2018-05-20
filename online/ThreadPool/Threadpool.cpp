@@ -5,23 +5,31 @@
 ///
 
 #include"Threadpool.h"
-#include"ThreadpoolThread.h"
 #include<unistd.h>
 #include<iostream>
 using namespace std;
 namespace meihao
 {
-	Threadpool::Threadpool(int threadNum,int bufSize):_threadNum(threadNum)
+	Threadpool::Threadpool(int threadNum,int bufSize,MyConf& myconf):_threadNum(threadNum)
 													,_bufSize(bufSize)
 													,_buf(_bufSize)
+													,_conf(myconf)
 												    ,_isExit(false)
 	{}
 	void Threadpool::start()
 	{//开启线程池,造好线程
+		//线程启动先初始化线程池cache
+		readCache();
 		for(int idx=0;idx!=_threadNum;++idx)
 		{
-			Thread* thread = new ThreadpoolThread(*this);  //要把线程池对象传过去，
-			//run方法调用线程池功能函数要用到
+			Thread* thread = new Thread( 
+					::bind(&Threadpool::threadFunc,this,::placeholders::_1)
+					//子线程各自执行的时候回修改Cache,导致和线程池里的Cache不一样
+					//所以造线程的时候先拷贝线程池的cache过去,之后调用回调函数
+					//执行各自的线程函数的时候传递自己拷贝的cache过去
+					//防止多个线程同时修改线程池cache,不用对cache操作加解锁
+					//所以这里绑定回调函数先使用占位符,最后在传参
+					,_cache );
 			_threadsVec.push_back(thread);
 		}
 		for(auto& elem:_threadsVec)
@@ -48,15 +56,15 @@ namespace meihao
 			}
 		}
 	}
-	void Threadpool::addTask(Task* task)
+	void Threadpool::addTask(Task task)
 	{
 		_buf.push(task);  //线程池添加一个任务
 	}
-	Task* Threadpool::getTask()
+	Task Threadpool::getTask()
 	{
 		return _buf.pop();
 	}
-	void Threadpool::threadFunc()
+	void Threadpool::threadFunc(Cache& cache)  //线程对象的绑定函数,也是真正线程的执行功能
 	{
 		//	if(!_isExit)
 		//	{
@@ -69,11 +77,28 @@ namespace meihao
 		//线程执行任务是死循环，这里直接执行一次就退出了
 		while(!_isExit)
 		{
-			Task* task = getTask();
+			Task task = getTask();
 			if(task)
 			{
-				task->process();
+				task(cache);
 			}
 		}
+	}
+	void Threadpool::readCache()
+	{
+		_cache.readFromFile( ((_conf.getMap())["cache"]).c_str() );
+	}
+	void Threadpool::updateCache()
+	{
+		for( auto& elem:_threadsVec )
+		{//每个子线程的cache来更新线程池的cache
+			_cache.update(elem->getCache());
+		}
+		for( auto& elem:_threadsVec )
+		{
+			elem->getCache().update(_cache);
+		}
+		//写回磁盘
+		_cache.writeToFile( (_conf.getMap())["cache"] );
 	}
 };
