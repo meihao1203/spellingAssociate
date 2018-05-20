@@ -4,7 +4,7 @@
  /// @date    2018-05-20 19:18:20
  ///
  
-#ifdef __SOCKETIO_H__
+#ifndef __SOCKETIO_H__
 #define __SOCKETIO_H__
 #include<iostream>
 #include<sys/types.h>
