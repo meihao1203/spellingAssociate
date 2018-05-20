@@ -16,11 +16,11 @@ namespace meihao
 	{
 		public:
 			SocketIO(int);
-			readn(char* buf,int count);
-			writen(const char* buf,int count);
-			readline(char* buf,int count);
+			int readn(char* buf,int count);
+			int writen(const char* buf,int count);
+			int readline(char* buf,int count);
 		private:
-			readPeek(char* buf,int count);
+			int readPeek(char* buf,int count);
 		private:
 			int _fd;
 	};
