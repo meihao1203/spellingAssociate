@@ -48,12 +48,11 @@ namespace meihao
 		}
 	}
 	void* Thread::threadFunc(void* arg)
-	{//线程处理函数,指向线程类中的run方法，
-	 //run方法由派生类实现
+	{
 		Thread* thread = static_cast<Thread*> (arg);
 		if(thread)
 		{
-			thread->_cb(thread->_cache);
+			thread->_cb(thread->_cache);  //_cb是线程池造线程对象传过来的
 		}
 	}
 	Cache& Thread::getCache()
@@ -61,7 +60,3 @@ namespace meihao
 		return _cache;
 	}
 };
-int main()
-{
-
-}
