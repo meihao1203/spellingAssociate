@@ -5,7 +5,10 @@
  ///
  
 #include<iostream>
+#include<string.h>
+#include<unistd.h>
 #include"InetAddress.h"
+#include"SocketIO.h"
 using namespace std;
 int main()
 {
@@ -13,7 +16,19 @@ int main()
 	int cfd = socket(AF_INET,SOCK_STREAM,0);
 	connect(cfd,(const struct sockaddr*)ina.getInetAddressPtr(),(socklen_t)sizeof(struct sockaddr));
 	char buf[512];
-	recv(cfd,buf,sizeof(buf),0);
-	cout<<buf<<endl;
+	meihao::SocketIO sio(cfd);
+	cout<<"---"<<endl;
+	sio.readn(buf,sizeof(buf));
+	//recv(cfd,buf,sizeof(buf),0);
+	cout<<"recv:"<<buf;
+	while(1)
+	{
+		bzero(buf,sizeof(buf));
+		read(0,buf,sizeof(buf));
+		sio.writen(buf,sizeof(buf));
+		bzero(buf,sizeof(buf));
+		sio.readline(buf,sizeof(buf));
+		cout<<"recv:"<<buf;
+	}
 	return 0;
 }
