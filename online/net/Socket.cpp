@@ -119,12 +119,3 @@ namespace meihao
 		return InetAddress(addr);
 	}
 };
-int main()
-{
-	meihao::InetAddress InAddr(8848);
-	meihao::Socket sock;
-	sock.ready(InAddr);
-	int fd = sock.accept();
-	char buf[] = "I am server\n";
-	send(fd,buf,sizeof(buf),0);
-}
