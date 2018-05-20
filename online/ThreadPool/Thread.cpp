@@ -56,4 +56,12 @@ namespace meihao
 			thread->_cb(thread->_cache);
 		}
 	}
+	Cache& Thread::getCache()
+	{
+		return _cache;
+	}
 };
+int main()
+{
+
+}
