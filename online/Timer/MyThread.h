@@ -12,7 +12,7 @@
 using namespace std;
 namespace meihao
 {
-	typedef std::function<void()> ThreadCallback;
+	typedef ::function<void()> ThreadCallback;
 	class MyThread
 	{
 		public:
