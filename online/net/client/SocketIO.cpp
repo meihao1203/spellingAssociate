@@ -69,7 +69,7 @@ namespace meihao
 	}
 	int SocketIO::readline(char* buf,int count)
 	{
-		int left = count;
+		int left = count-1;  //如果读最大字节数还没有找到回车，就用\0结尾
 		char* ptmp = buf;
 		int readcnt = 0;
 		while(left>0)
@@ -86,7 +86,9 @@ namespace meihao
 						if(readn(ptmp,(idx+1))!=(idx+1))
 							return -1;
 						left -= (idx+1);
-						ptmp += (idx+1);
+						ptmp += idx;
+						*ptmp = '\0';  //把回车换成\0，这样以后读一行后打印可以写上endl;
+						//统一操作，不然每次一忘记就是多一个空行
 						readcnt += (idx+1);
 						return readcnt;
 					}
@@ -98,6 +100,7 @@ namespace meihao
 			ptmp += nread;
 			readcnt += nread;
 		}
+		*ptmp = '\0';
 		return readcnt;
 	}
 };
