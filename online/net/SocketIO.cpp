@@ -44,7 +44,6 @@ namespace meihao
 		while(left>0)
 		{
 			int nread = ::send(_fd,ptmp,left,0);
-			cout<<"nread"<<nread<<endl;
 			if(-1==nread)
 			{
 				if(errno==EINTR)
@@ -72,6 +71,7 @@ namespace meihao
 	{
 		int left = count;
 		char* ptmp = buf;
+		int readcnt = 0;
 		while(left>0)
 		{
 			int nread = readPeek(ptmp,count);
@@ -86,7 +86,9 @@ namespace meihao
 						if(readn(ptmp,(idx+1))!=(idx+1))
 							return -1;
 						left -= (idx+1);
-						return count - left;
+						ptmp += (idx+1);
+						readcnt += (idx+1);
+						return readcnt;
 					}
 				}
 			}
@@ -94,7 +96,8 @@ namespace meihao
 				return -1;
 			left -= nread;
 			ptmp += nread;
+			readcnt += nread;
 		}
-		return count - left;
+		return readcnt;
 	}
 };
