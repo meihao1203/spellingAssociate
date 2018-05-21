@@ -7,6 +7,7 @@
 #ifndef __EPOLLPOLLER_H__
 #define __EPOLLPOLLER_H__
 #include<iostream>
+#include<sys/epoll.h>
 #include"TcpConnection.h"
 #include<vector>
 #include<map>
@@ -22,8 +23,8 @@ namespace meihao
 			void setConnectionCallback(TcpConnectionCallback);  //设置连接到服务器端的连接的回调函数
 			void setMessageCallback(TcpConnectionCallback);
 			void setCloseCallback(TcpConnectionCallback);
-			void waitEpollfd();
 		private:
+			void waitEpollfd();
 			void handleConnection();
 			void handleMessage(int fd);
 		private:
