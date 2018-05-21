@@ -1,9 +1,9 @@
- ///
- /// @file    client.cpp
- /// @author  meihao1203(meihao19931203@outlook.com)
- /// @date    2018-05-20 17:00:38
- ///
- 
+///
+/// @file    client.cpp
+/// @author  meihao1203(meihao19931203@outlook.com)
+/// @date    2018-05-20 17:00:38
+///
+
 #include<iostream>
 #include<string.h>
 #include<unistd.h>
@@ -20,14 +20,11 @@ int main()
 	sio.readline(buf,sizeof(buf));
 	//recv(cfd,buf,sizeof(buf),0)
 	cout<<"recv:"<<buf<<endl;
-	while(1)
-	{
-		bzero(buf,sizeof(buf));
-		read(0,buf,sizeof(buf));
-		sio.writen(buf,strlen(buf));
-		bzero(buf,sizeof(buf));
-		sio.readline(buf,sizeof(buf));
-		cout<<"recv:"<<buf;
-	}
+	bzero(buf,sizeof(buf));
+	read(0,buf,sizeof(buf));
+	sio.writen(buf,strlen(buf));
+	bzero(buf,sizeof(buf));
+	sio.readline(buf,sizeof(buf));
+	cout<<"recv:"<<buf<<endl;
 	return 0;
 }
