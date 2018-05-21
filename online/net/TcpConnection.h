@@ -15,9 +15,10 @@
 using namespace std;
 namespace meihao
 {
+	class TcpConnection;
 	typedef ::shared_ptr<TcpConnection> TcpConnectionPtr;
 	typedef ::function<void(const TcpConnectionPtr&)> TcpConnectionCallback;
-	class TcpConnection:public ::enable_shared_from_this<TcpConnetion>
+	class TcpConnection:public ::enable_shared_from_this<TcpConnection>
 	{
 		public:
 			TcpConnection(int);
