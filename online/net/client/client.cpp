@@ -17,15 +17,14 @@ int main()
 	connect(cfd,(const struct sockaddr*)ina.getInetAddressPtr(),(socklen_t)sizeof(struct sockaddr));
 	char buf[512];
 	meihao::SocketIO sio(cfd);
-	cout<<"---"<<endl;
-	sio.readn(buf,sizeof(buf));
-	//recv(cfd,buf,sizeof(buf),0);
-	cout<<"recv:"<<buf;
+	sio.readline(buf,sizeof(buf));
+	//recv(cfd,buf,sizeof(buf),0)
+	cout<<"recv:"<<buf<<endl;
 	while(1)
 	{
 		bzero(buf,sizeof(buf));
 		read(0,buf,sizeof(buf));
-		sio.writen(buf,sizeof(buf));
+		sio.writen(buf,strlen(buf));
 		bzero(buf,sizeof(buf));
 		sio.readline(buf,sizeof(buf));
 		cout<<"recv:"<<buf;
