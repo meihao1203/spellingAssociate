@@ -1,9 +1,9 @@
- //
- /// @file    main.cpp
- /// @author  meihao1203(meihao19931203@outlook.com)
- /// @date    2018-05-20 20:04:03
- ///
- 
+///
+/// @file    main.cpp
+/// @author  meihao1203(meihao19931203@outlook.com)
+/// @date    2018-05-20 20:04:03
+///
+
 #include"SocketIO.h"
 #include<iostream>
 #include"InetAddress.h"
@@ -11,6 +11,7 @@
 #include"string.h"
 #include"TcpConnection.h"
 #include"EpollPoller.h"
+#include"TcpServer.h"
 using namespace std;
 namespace meihao
 {
@@ -22,10 +23,10 @@ namespace meihao
 	void onMessage(const meihao::TcpConnectionPtr& conn)
 	{
 		string msg = conn->receive();
-		cout<<"recv:"<<msg<<endl;
+		cout<<"recv:"<<msg;
 		conn->send(msg);
 	}
-	void onClosed(const meihao::TcpConnectionPtr& conn)
+	void onClose(const meihao::TcpConnectionPtr& conn)
 	{
 		cout<<conn->toString()<<" has closed!"<<endl;
 	}
@@ -36,18 +37,18 @@ void test0()
 	meihao::Socket sock;
 	sock.ready(ina);
 	int nfd = sock.accept();
-//	meihao::SocketIO sio(nfd);
+	meihao::SocketIO sio(nfd);
 	char buf[512] = "i am server\n";
-//	sio.writen(buf,strlen(buf));
-//	while(1)
-//	{
-//		bzero(buf,sizeof(buf));
-//		sio.readline(buf,sizeof(buf));
-//		cout<<buf;
-//		sio.writen(buf,strlen(buf));
-//	}
+	sio.writen(buf,strlen(buf));
+	while(1)
+	{
+		bzero(buf,sizeof(buf));
+		sio.readline(buf,sizeof(buf));
+		cout<<buf;
+		sio.writen(buf,strlen(buf));
+	}
 }
-int main()
+void test1()
 {
 	meihao::InetAddress ina(8848);
 	meihao::Socket sock;
@@ -56,8 +57,16 @@ int main()
 	meihao::TcpConnectionPtr conn(new meihao::TcpConnection(nfd));
 	conn->setConnectionCallback(meihao::onConnection);
 	conn->setMessageCallback(meihao::onMessage);
-	conn->setCloseCallback(meihao::onClosed);
+	conn->setCloseCallback(meihao::onClose);
 	conn->handleConnectionCallback();
 	conn->handleMessageCallback();
 	conn->handleCloseCallback();
+}
+int main()
+{
+	meihao::TcpServer ts(8848);
+	ts.setConnectionCallback(meihao::onConnection);
+	ts.setMessageCallback(meihao::onMessage);
+	ts.setCloseCallback(meihao::onClose);
+	ts.start();
 }
