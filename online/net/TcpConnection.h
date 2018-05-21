@@ -11,11 +11,12 @@
 #include"Socket.h"
 #include"SocketIO.h"
 #include"InetAddress.h"
+#include<functional>
 using namespace std;
 namespace meihao
 {
-	typedef shared_ptr<TcpConnection> TcpConnectionPtr;
-	typedef function<void(const TcpConnectionPtr&)> TcpConnectionCallback;
+	typedef ::shared_ptr<TcpConnection> TcpConnectionPtr;
+	typedef ::function<void(const TcpConnectionPtr&)> TcpConnectionCallback;
 	class TcpConnection:public ::enable_shared_from_this<TcpConnetion>
 	{
 		public:
