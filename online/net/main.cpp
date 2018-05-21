@@ -10,6 +10,7 @@
 #include"Socket.h"
 #include"string.h"
 #include"TcpConnection.h"
+#include"EpollPoller.h"
 using namespace std;
 namespace meihao
 {
