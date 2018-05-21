@@ -74,21 +74,19 @@ namespace meihao
 		int readcnt = 0;
 		while(left>0)
 		{
-			int nread = readPeek(ptmp,count);
-			if(-1==nread||0==nread)
+			int nread = readPeek(ptmp,left);
+			if(nread<=0)
 				return -1;
 			else
 			{
 				for(int idx=0;idx!=nread;++idx)
 				{
-					if(ptmp[idx]=='\n')
+					if(ptmp[idx]=='\n'||ptmp[idx]=='\0')
 					{
 						if(readn(ptmp,(idx+1))!=(idx+1))
 							return -1;
 						left -= (idx+1);
-						ptmp += idx;
-						*ptmp = '\0';  //把回车换成\0，这样以后读一行后打印可以写上endl;
-						//统一操作，不然每次一忘记就是多一个空行
+						ptmp += (idx);
 						readcnt += (idx+1);
 						return readcnt;
 					}
