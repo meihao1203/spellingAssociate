@@ -19,12 +19,14 @@ int main()
 	meihao::SocketIO sio(cfd);
 	sio.readline(buf,sizeof(buf));
 	//recv(cfd,buf,sizeof(buf),0)
-	cout<<"recv:"<<buf<<endl;
+	cout<<"recv:"<<buf;
+
+
 	bzero(buf,sizeof(buf));
 	read(0,buf,sizeof(buf));
 	sio.writen(buf,strlen(buf));
 	bzero(buf,sizeof(buf));
 	sio.readline(buf,sizeof(buf));
-	cout<<"recv:"<<buf<<endl;
+	cout<<"recv:"<<buf;
 	return 0;
 }
