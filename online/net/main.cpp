@@ -1,4 +1,4 @@
- ///
+ //
  /// @file    main.cpp
  /// @author  meihao1203(meihao19931203@outlook.com)
  /// @date    2018-05-20 20:04:03
@@ -14,14 +14,11 @@ int main()
 {
 	meihao::InetAddress ina(8848);
 	meihao::Socket sock;
-	meihao::SocketIO sio(sock.fd());
 	sock.ready(ina);
 	int nfd = sock.accept();
-	cout<<"newfd:"<<nfd<<endl;
-	char buf[] = "i am server\n";
-	cout<<strlen(buf)<<endl;
+	meihao::SocketIO sio(nfd);
+	char buf[512] = "i am server\n";
 	sio.writen(buf,strlen(buf));
-	cout<<"----"<<endl;
 	while(1)
 	{
 		bzero(buf,sizeof(buf));
