@@ -16,6 +16,7 @@ using namespace std;
 	do{ perror(msg); exit(EXIT_FAILURE);}while(0);
 namespace meihao
 {
+	int eventsize = 1024;  //epoll_wait存放描述符的vector,必须事先开辟空间，不让放不了，底层实现都是直接放，不会push_back
 	int createfd()
 	{
 		int efd = ::epoll_create(1);
@@ -54,6 +55,7 @@ namespace meihao
 	EpollPoller::EpollPoller(int listenfd):_listenfd(listenfd)
 										 ,_epollfd(createfd())
 										 ,_isLoop(false)
+										 ,_eventList(eventsize)
 	{
 		addEpollfd(_epollfd,_listenfd);
 	}
@@ -62,7 +64,7 @@ namespace meihao
 		int ret;
 		do
 		{
-			ret = ::epoll_wait( _epollfd,&(*_eventList.begin()),_eventList.size()+1,5000 );
+			ret = ::epoll_wait( _epollfd,&(*_eventList.begin()),_eventList.size(),5000 );
 		}while(-1==ret&&errno==EINTR);
 		if(-1==ret)
 		{
@@ -72,6 +74,10 @@ namespace meihao
 			cout<<"epoll timeout"<<endl;
 		else 
 		{
+			if(ret==_eventList.size())
+			{
+				_eventList.resize(ret*2);
+			}
 			for(int idx=0;idx!=ret;++idx)
 			{
 				if( _eventList[idx].data.fd == _listenfd&&_eventList[idx].events==EPOLLIN )
@@ -94,6 +100,13 @@ namespace meihao
 			{
 				waitEpollfd();
 			}
+		}
+	}
+	void EpollPoller::unloop()
+	{
+		if(_isLoop)
+		{
+			_isLoop = false;
 		}
 	}
 	void EpollPoller::handleConnection()
@@ -127,7 +140,7 @@ namespace meihao
 		auto it = _connMap.find(fd);
 		if(it!=_connMap.end())
 		{
-			if(flag)
+			if(!flag)
 			{
 				it->second->handleMessageCallback();
 			}
