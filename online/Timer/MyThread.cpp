@@ -6,6 +6,8 @@
  
 #include"MyThread.h"
 #include<iostream>
+#include<stdio.h>
+#include<errno.h>
 using namespace std;
 namespace meihao
 {
@@ -21,8 +23,28 @@ namespace meihao
 			pthread_detach(_pthId);
 		}
 	}
-
+	void MyThread::start()
+	{
+		_isRunning = true;
+		int ret = ::pthread_create(&_pthId,NULL,&MyThread::threadFunc,this);
+		if(0!=ret)
+		{
+			perror("::pthread_create");
+		}
+	}
+	void MyThread::join()
+	{
+		if(_isRunning)
+		{
+			pthread_join(_pthId,NULL);
+		}
+	}
+	void* MyThread::threadFunc(void* arg)
+	{
+		MyThread* thread = static_cast<MyThread*> (arg);
+		if(thread)
+		{
+			thread->_cb();
+		}
+	}
 };
-int main()
-{
-}
