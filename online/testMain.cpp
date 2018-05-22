@@ -1,4 +1,4 @@
- ///
+ //
  /// @file    testMain.cpp
  /// @author  meihao1203(meihao19931203@outlook.com)
  /// @date    2018-05-19 11:31:52
@@ -6,6 +6,7 @@
  
 #include"MyConf.h"
 #include"MyDict.h"
+#include"MyTask.h"
 #include<iostream>
 using namespace std;
 int main()
