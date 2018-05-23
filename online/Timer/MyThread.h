@@ -12,11 +12,11 @@
 using namespace std;
 namespace meihao
 {
-	typedef ::function<void()> ThreadCallback;
+	typedef ::function<void()> MyThreadCallback;
 	class MyThread
 	{
 		public:
-			MyThread(ThreadCallback);
+			MyThread(MyThreadCallback);
 			~MyThread();
 			void start();
 			void join();
@@ -24,7 +24,7 @@ namespace meihao
 		private:
 			pthread_t _pthId;
 			bool _isRunning;
-			ThreadCallback _cb;
+			MyThreadCallback _cb;
 	};
 };
 #endif
