@@ -10,7 +10,7 @@ using namespace std;
 namespace meihao
 {
 	TimerThread::TimerThread(TimerThreadCallback cb,int init_sec,int interval_sec):_timer(cb,init_sec,interval_sec)
-																				,_thread(::bind(&Timer::start,&_timer))
+							,_thread(::bind(&Timer::start,&_timer))
 	{
 	}
 	void TimerThread::start()
