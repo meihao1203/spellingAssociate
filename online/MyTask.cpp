@@ -9,6 +9,7 @@
 #include<unistd.h>
 #include<iterator>
 #include"MyDict.h"
+#include"EditDistance.h"
 using namespace std;
 namespace meihao
 {
@@ -16,7 +17,7 @@ namespace meihao
 													   ,_peerfd(peerfd)
 	{
 	}
-	void MyTask::execute(Cache& cache)
+	void MyTask::execute(Cache& cache)  //真正的任务执行体
 	{//MyTask执行函数
 		string result = cache.query(_queryWord); //cache中查找要查询的词
 		if(result!=string())  //如果找到
@@ -26,9 +27,9 @@ namespace meihao
 			return ;
 		}
 
-		//queryIndexTable();  //cache里面没有就要去索引表里面查找
+		queryIndexTable();  //cache里面没有就要去索引表里面查找
 		//计算编辑距离
-		//response(cache);  //返回结果，并存入cache
+		response(cache);  //返回结果，并存入cache
 	}
 	void MyTask::queryIndexTable()
 	{
@@ -46,7 +47,7 @@ namespace meihao
 			if( indexTable.count(ch) )
 			{	
 				cout<<"indexTable has character"<<ch<<endl;
-				//statistic(indexTable[_queryWord[idx]]);
+				statistic(indexTable[ch]);  //对索引字符在词典中出现过的单词进行编辑距离计算
 			}
 		}
 	}
@@ -60,7 +61,7 @@ namespace meihao
 		}
 		vector<pair<string,int> > dict = md->get_dict();
 		set<int>::iterator it = iset.begin();
-		for(;it!=iset.end();++it)
+	for(;it!=iset.end();++it)
 		{
 			string source = dict[*it].first;  //得到索引中对应的单词
 			int idist = distance(source);  //计算最小编辑距离
@@ -76,6 +77,33 @@ namespace meihao
 	}
 	int MyTask::distance(const string& source)
 	{
-	//	return editDistance(_queryWorld,source);
+		return meihao::EditDistance::editDistance(_queryWord,source);  //计算客户端输入的单词
+	//	变成词典中有的单词要编辑的距离
+	}
+	void MyTask::response(Cache& cache)
+	{
+		if( _resultQue.empty() )  //如果没有在索引中找到待选结果
+		{
+			string result = "no answer!";
+			int ret = ::write(_peerfd,result.c_str(),result.size());
+			if(-1==ret)
+			{
+				cout<<"MyTask::response error"<<endl;
+				return ;
+			}
+			else
+			{
+				MyResult result = _resultQue.top();
+				int ret = ::write(_peerfd,result._word.c_str(),result._word.size());
+				if(-1==ret)
+				{
+					cout<<"MyTask::response result error"<<endl;
+					return ;
+				}
+				cache.addElement(_queryWord,result._word);  //添加到cache
+				cout<<"MyTask::response add cache"<<endl;
+			}
+			cout<<"feedback client"<<endl;
+		}
 	}
 };
