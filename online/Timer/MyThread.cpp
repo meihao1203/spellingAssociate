@@ -11,7 +11,7 @@
 using namespace std;
 namespace meihao
 {
-	MyThread::MyThread(ThreadCallback cb):_cb(cb)
+	MyThread::MyThread(MyThreadCallback cb):_cb(cb)
 									,_pthId(0)
 									,_isRunning(false)
 	{
