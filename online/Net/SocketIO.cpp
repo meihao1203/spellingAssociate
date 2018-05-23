@@ -86,7 +86,7 @@ namespace meihao
 						if(readn(ptmp,(idx+1))!=(idx+1))
 							return -1;
 						left -= (idx+1);
-						ptmp += (idx);
+						ptmp += (idx+1);
 						readcnt += (idx+1);
 						return readcnt;
 					}
