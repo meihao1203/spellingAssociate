@@ -9,6 +9,7 @@
 #include<iostream>
 #include"Timer.h"
 #include"MyThread.h"
+#include<functional>
 using namespace std;
 namespace meihao
 {
