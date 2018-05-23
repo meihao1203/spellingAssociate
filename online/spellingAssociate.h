@@ -1,7 +1,7 @@
  ///
  /// @file    spellingAssociate.h
  /// @author  meihao1203(meihao19931203@outlook.com)
- /// @date    2018-05-23 16:25:20
+ /// @date    2018-05-23 20:15:02
  ///
  
 #ifndef __SPELLINGASSOCIATE_H__
@@ -24,10 +24,10 @@ namespace meihao
 			void onMessage(TcpConnectionPtr);
 			void onClose(TcpConnectionPtr);
 		private:
-			MyConf _conf;  //配置文件
-			TcpServer _tcpServer;  //服务器
-			Threadpool _threadpool;  //线程池
-			TimerThread _timer;  //同步线程池和业务线程的cache
+			MyConf _conf;
+			TcpServer _tcpServer;
+			Threadpool _threadpool;
+			TimerThread _timer;
 	};
 };
 #endif
