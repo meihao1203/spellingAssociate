@@ -65,7 +65,9 @@ void test1()
 int main()
 {
 	meihao::TcpServer ts(8848);
-	ts.setConnectionCallback(meihao::onConnection);
+	//ts.setConnectionCallback(meihao::onConnection);
+	//using namespace std::placeholders;
+	ts.setConnectionCallback(bind(&meihao::onConnection,std::placeholders::_1));  //两种方法都可以
 	ts.setMessageCallback(meihao::onMessage);
 	ts.setCloseCallback(meihao::onClose);
 	ts.start();
