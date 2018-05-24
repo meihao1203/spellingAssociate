@@ -32,7 +32,7 @@ namespace meihao
 	}
 	void TcpConnection::send(const string& msg)
 	{
-		_sockIO.writen(msg.c_str(),msg.size());
+		 _sockIO.writen(msg.c_str(),msg.size());
 	}
 	void TcpConnection::shutdown()
 	{
