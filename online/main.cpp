@@ -8,5 +8,7 @@
 using namespace std;
 int main()
 {
-
+	meihao::spellingAssociate sa("/home/meihao/spellingAssociate/online/conf/sa.conf");
+	sa.start();
+	return 0;
 }
