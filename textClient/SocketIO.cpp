@@ -88,6 +88,7 @@ namespace meihao
 						left -= (idx+1);
 						ptmp += (idx+1);
 						readcnt += (idx+1);
+						*ptmp = '\0';
 						return readcnt;
 					}
 				}
