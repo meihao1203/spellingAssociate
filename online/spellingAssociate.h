@@ -9,6 +9,7 @@
 #include<iostream>
 #include"MyConf.h"
 #include"TcpServer.h"
+#include"TcpConnection.h"
 #include"Threadpool.h"
 #include"TimerThread.h"
 using namespace std;
@@ -20,9 +21,9 @@ namespace meihao
 			spellingAssociate(const string& confFilename);
 			void start();
 			void stop();
-			void onConnection(TcpConnectionPtr);
-			void onMessage(TcpConnectionPtr);
-			void onClose(TcpConnectionPtr);
+			void onConnection(const meihao::TcpConnectionPtr&);
+			void onMessage(const meihao::TcpConnectionPtr&);
+			void onClose(const meihao::TcpConnectionPtr&);
 		private:
 			MyConf _conf;
 			TcpServer _tcpServer;
