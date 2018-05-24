@@ -23,10 +23,10 @@ namespace meihao
 		if(result!=string())  //如果找到
 		{
 			::write(_peerfd,result.c_str(),result.size());
-			cout<<"feedback client"<<endl;
+			cout<<"find in cache , feedback client"<<endl;
 			return ;
 		}
-
+		cout<<"execute find in index"<<endl;
 		queryIndexTable();  //cache里面没有就要去索引表里面查找
 		//计算编辑距离
 		response(cache);  //返回结果，并存入cache
@@ -46,7 +46,7 @@ namespace meihao
 			ch = _queryWord[idx];
 			if( indexTable.count(ch) )
 			{	
-				cout<<"indexTable has character"<<ch<<endl;
+				//cout<<"indexTable has character"<<ch<<endl;
 				statistic(indexTable[ch]);  //对索引字符在词典中出现过的单词进行编辑距离计算
 			}
 		}
@@ -61,10 +61,11 @@ namespace meihao
 		}
 		vector<pair<string,int> > dict = md->get_dict();
 		set<int>::iterator it = iset.begin();
-	for(;it!=iset.end();++it)
+		for(;it!=iset.end();++it)
 		{
 			string source = dict[*it].first;  //得到索引中对应的单词
 			int idist = distance(source);  //计算最小编辑距离
+			//cout<<"idist:"<<idist<<endl;
 			if(idist<3)
 			{
 				MyResult res;
@@ -78,32 +79,35 @@ namespace meihao
 	int MyTask::distance(const string& source)
 	{
 		return meihao::EditDistance::editDistance(_queryWord,source);  //计算客户端输入的单词
-	//	变成词典中有的单词要编辑的距离
+		//	变成词典中有的单词要编辑的距离
 	}
 	void MyTask::response(Cache& cache)
 	{
+		//cout<<"run in response"<<" _resultQue.empty():"<<_resultQue.empty() <<endl;
 		if( _resultQue.empty() )  //如果没有在索引中找到待选结果
 		{
 			string result = "no answer!";
+			cout<<"MyTask response "<<result<<endl;
 			int ret = ::write(_peerfd,result.c_str(),result.size());
 			if(-1==ret)
 			{
 				cout<<"MyTask::response error"<<endl;
 				return ;
 			}
-			else
-			{
-				MyResult result = _resultQue.top();
-				int ret = ::write(_peerfd,result._word.c_str(),result._word.size());
-				if(-1==ret)
-				{
-					cout<<"MyTask::response result error"<<endl;
-					return ;
-				}
-				cache.addElement(_queryWord,result._word);  //添加到cache
-				cout<<"MyTask::response add cache"<<endl;
-			}
-			cout<<"feedback client"<<endl;
 		}
+		else
+		{
+			MyResult result = _resultQue.top();
+			cout<<"find in index , answer is:"<<result._word<<endl;
+			int ret = ::write(_peerfd,result._word.c_str(),result._word.size());
+			if(-1==ret)
+			{
+				cout<<"MyTask::response result error"<<endl;
+				return ;
+			}
+			cache.addElement(_queryWord,result._word);  //添加到cache
+			cout<<"MyTask::response add cache"<<endl;
+		}
+		cout<<"feedback client"<<endl;
 	}
 };
