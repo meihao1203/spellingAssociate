@@ -16,7 +16,7 @@ namespace meihao
 	spellingAssociate::spellingAssociate(const string& confFilename):_conf(confFilename)
 					,_tcpServer( _conf.getMap()["ip"].c_str(),atoi(_conf.getMap()["port"].c_str()) )
 					,_threadpool(4,10,_conf)
-					,_timer(bind(&Threadpool::updateCache,&_threadpool),10,5 )
+					,_timer(bind(&Threadpool::updateCache,&_threadpool),5,3 )
 	{
 	//线程池：4个线程，任务队列10
 	//10s开始更新cache,之后每隔5s再更新一次
@@ -54,10 +54,11 @@ namespace meihao
 	void spellingAssociate::onMessage(const meihao::TcpConnectionPtr& conn)
 	{
 		string msg = conn->receive();  //接收一行
-		cout<<msg<<endl;
+		//cout<<"recv msg:"<<msg<<endl;
 		int pos = msg.find('\n');  //去掉换行符
+		//cout<<"pos"<<pos<<endl;
 		string queryWord = msg.substr(0,pos);
-		cout<<queryWord;  //测试一下有没有去掉换行
+		cout<<"client query word :"<<queryWord<<endl;  //测试一下有没有去掉换行  15:44 0524
 		//对应的建立一个任务
 		MyTask task(queryWord,conn->fd());  //传递接收到的fd过去，线程就可以和客户端交互了
 		_threadpool.addTask(bind(&MyTask::execute,&task,_1));  //占位符_1最终是传递的执行任务线程的cache
