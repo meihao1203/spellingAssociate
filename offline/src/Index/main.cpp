@@ -10,8 +10,8 @@ using namespace std;
 int main()
 {
 	meihao::Index index("./../../doc/dict.txt");
-	index.readDict();
-	index.indexMap();
+//	index.readDict();
+//	index.indexMap();
 	cout<<"write:"<<endl;
 	index.indexMapSave();
 }
