@@ -1,0 +1,4 @@
+这里是最后在项目上加上去的，用来处理中午语料
+采用cppjieba开源库来对中文进行分词
+cppjieba地址:https://github.com/meihao1203/cppjieba
+
