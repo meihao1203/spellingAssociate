@@ -41,13 +41,26 @@ namespace meihao
 		}
 		map<string,set<int> > indexTable = md->get_index_table();
 		string ch;
-		for(int idx=0;idx!=_queryWord.size();++idx)
+		// 只是处理英文
+	//	for(int idx=0;idx!=_queryWord.size();++idx)
+	//	{
+	//		ch = _queryWord[idx];
+	//		if( indexTable.count(ch) )
+	//		{	
+	//			//cout<<"indexTable has character"<<ch<<endl;
+	//			statistic(indexTable[ch]);  //对索引字符在词典中出现过的单词进行编辑距离计算
+	//		}
+	//	}
+		// 处理中英文索引
+		for(int idx=0;idx!=_queryWord.size();)
 		{
-			ch = _queryWord[idx];
-			if( indexTable.count(ch) )
-			{	
+			int cnt = meihao::EditDistance::nbytes(_queryWord[idx]);
+			ch = _queryWord.substr(idx,cnt);  //中文可能占据多个字节，要一次读完
+			idx += cnt;
+			if(  indexTable.count(ch) )
+			{
 				//cout<<"indexTable has character"<<ch<<endl;
-				statistic(indexTable[ch]);  //对索引字符在词典中出现过的单词进行编辑距离计算
+				statistic(indexTable[ch]);
 			}
 		}
 	}
