@@ -2,3 +2,11 @@
 采用cppjieba开源库来对中文进行分词
 cppjieba地址:https://github.com/meihao1203/cppjieba
 
+
+该文件下的file1.txt是拿来测试用的，最终处理文件是spellingAssociate/offline/cnsource下的文件
+预处理结果保存在当前路径下的prefile.txt
+
+
+
+cncut.cpp.bak文件是来拿测试cppjieba用法的文件，cppjieba下的dict文件夹，include文件夹和limonp文件夹都放到了/usr/local/include/cppjieba下，
+所以只需引入头文件即可，类对象创建也加到了Jieba.hpp文件的自己定义的meihao命名空间里面，using namespace meihao;后即可不用创建对象，直接调用方法
