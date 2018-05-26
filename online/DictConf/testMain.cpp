@@ -14,7 +14,8 @@ int main()
 	meihao::MyConf conf("/home/meihao/spellingAssociate/online/conf/sa.conf");
 	conf.show();
 	meihao::MyDict* dict = meihao::MyDict::getInstance();
-	dict->init( (conf.getMap())["dict.txt"].c_str(),NULL ) ;
+	//dict->init( (conf.getMap())["dict.txt"].c_str(),NULL ) ;
+	dict->init( (conf.getMap())["dict.txt"].c_str(),(conf.getMap()["cnDict.txt"].c_str())) ;  //最后加上了中文词典
 	//dict->show_dict();
 	dict->write_index_table();
 	return 0;
