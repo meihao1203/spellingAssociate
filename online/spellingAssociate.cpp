@@ -22,7 +22,8 @@ namespace meihao
 	//10s开始更新cache,之后每隔5s再更新一次
 		MyDict* pMyDict = MyDict::getInstance();
 		pMyDict->init(_conf.getMap()["dict.txt"].c_str(),
-				NULL);  //这里以后要放中文词典
+				// NULL);  //这里以后要放中文词典
+				_conf.getMap()["cnDict.txt"].c_str());
 	}
 	void spellingAssociate::start()
 	{
