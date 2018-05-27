@@ -14,17 +14,17 @@
 
 
 ### 项目框架 ###
-1. 线程池
+1. 线程池 
 ![Threadpool](https://github.com/meihao1203/spellingAssociate/blob/master/Threadpool.png)
 2. 服务器框架 
 ![TcpServer](https://github.com/meihao1203/spellingAssociate/blob/master/TcpServer.png)
-3. 定时器线程
+3. 定时器线程 
 ![TimerThread](https://github.com/meihao1203/spellingAssociate/blob/master/TimerThread.png)
-4. 任务类
+4. 任务类 
 ![MyTask](https://github.com/meihao1203/spellingAssociate/blob/master/MyTask.png)
-5. 项目总体框架
+5. 项目总体框架 
 ![spellingAssociate](https://github.com/meihao1203/spellingAssociate/blob/master/spellingAssociate.png)
-6. 离线部分类
+6. 离线部分类 
 ![offline](https://github.com/meihao1203/spellingAssociate/blob/master/offline.png)
 
 
