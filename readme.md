@@ -25,6 +25,7 @@
 ----------
 
 3. 定时器线程 
+
 ![TimerThread](https://github.com/meihao1203/spellingAssociate/blob/master/TimerThread.png)
 
 ----------
@@ -40,6 +41,7 @@
 ----------
 
 6. 离线部分类 
+
 ![offline](https://github.com/meihao1203/spellingAssociate/blob/master/offline.png)
 
 
