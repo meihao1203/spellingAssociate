@@ -1,0 +1,25 @@
+2018-05-27 20:05:09,894: INFO rootCategory : myLog()
+2018-05-27 20:05:09,993: INFO rootCategory : threadpool start {fileName:spellingAssociate.cpp functionName:start lineNumber:41}
+2018-05-27 20:05:09,993: INFO rootCategory : timer start {fileName:spellingAssociate.cpp functionName:start lineNumber:43}
+2018-05-27 20:05:09,993: INFO rootCategory : server callback function set down {fileName:spellingAssociate.cpp functionName:start lineNumber:54}
+2018-05-27 20:05:09,993: INFO rootCategory : Sun May 27 20:05:09 2018
+ {fileName:Timer.cpp functionName:printTime lineNumber:70}
+2018-05-27 20:05:09,993: INFO rootCategory : ------定时更新缓存线程启动------ {fileName:Timer.cpp functionName:start lineNumber:80}
+2018-05-27 20:05:12,079: INFO rootCategory : 192.168.254.136:49288--->192.168.254.136:8848 has connected!
+ {fileName:spellingAssociate.cpp functionName:onConnection lineNumber:70}
+2018-05-27 20:05:14,851: INFO rootCategory : 192.168.254.136:49288 query word :gooq
+ {fileName:MyTask.cpp functionName:execute lineNumber:31}
+2018-05-27 20:05:14,851: INFO rootCategory : 192.168.254.136:49288 find in cache , feedback client good
+ {fileName:MyTask.cpp functionName:execute lineNumber:38}
+2018-05-27 20:05:19,172: INFO rootCategory : 192.168.254.136:49288 query word :总国
+ {fileName:MyTask.cpp functionName:execute lineNumber:31}
+2018-05-27 20:05:19,172: INFO rootCategory : 192.168.254.136:49288 find in cache , feedback client 中国
+ {fileName:MyTask.cpp functionName:execute lineNumber:38}
+2018-05-27 20:05:19,868: INFO rootCategory : 192.168.254.136:49288--->192.168.254.136:8848 has closed!
+ {fileName:spellingAssociate.cpp functionName:onClose lineNumber:89}
+2018-05-27 20:05:19,895: INFO rootCategory : ------开始更新缓冲cache------ {fileName:Timer.cpp functionName:start lineNumber:101}
+2018-05-27 20:05:19,895: INFO rootCategory : Sun May 27 20:05:19 2018
+ {fileName:Timer.cpp functionName:printTime lineNumber:70}
+2018-05-27 20:05:19,895: INFO rootCategory : ------更新缓冲开始------ {fileName:Threadpool.cpp functionName:updateCache lineNumber:97}
+2018-05-27 20:05:19,895: INFO rootCategory : ------更新缓冲结束------ {fileName:Threadpool.cpp functionName:updateCache lineNumber:107}
+2018-05-27 20:05:19,895: INFO rootCategory : ------cache写回磁盘结束------ {fileName:Threadpool.cpp functionName:updateCache lineNumber:111}
