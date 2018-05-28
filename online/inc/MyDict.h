@@ -5,7 +5,7 @@
  ///
  
 #ifndef __MYDICT_H__
-#define __MYDICT_H
+#define __MYDICT_H__
 #include<iostream>
 #include<map>
 #include<vector>
