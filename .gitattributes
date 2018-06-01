@@ -1,2 +1,2 @@
-*.h linguist-lan=c++
 *.cpp linguist-lan=c++
+*.h linguist-lan=c++
