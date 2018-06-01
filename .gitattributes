@@ -1,2 +1,4 @@
-*.h linguist-language=c++
-*.cpp linguist-language=c++
+*.h linguist-language=C++
+*.cpp linguist-language=C++
+*.png linguist-language=C++
+*.sh linguist-language=C++
