@@ -56,3 +56,5 @@
 2. log4cpp开源库记录项目运行日志
 3. 最小编辑距离算法计算单词转换所需的最少编辑操作
 4. utf-8编码解析
+
+[![LICENSE](https://img.shields.io/badge/license-Anti%20996-blue.svg)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
